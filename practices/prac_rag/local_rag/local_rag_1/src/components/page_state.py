@@ -15,7 +15,7 @@ def set_initial_state():
         st.session_state["sidebar_state"] = "expanded"
 
     if "ollama_endpoint" not in st.session_state:
-        st.session_state["ollama_endpoint"] = "http://localhost:11434"
+        st.session_state["ollama_endpoint"] = "http://host.docker.internal:11434"
 
     if "embedding_model" not in st.session_state:
         st.session_state["embedding_model"] = "Default (bge-large-en-v1.5)"
@@ -30,9 +30,9 @@ def set_initial_state():
 
     if "selected_model" not in st.session_state:
         try:
-            if "llama3:8b" in st.session_state["ollama_models"]:
+            if "llama3.2:1b" in st.session_state["ollama_models"]:
                 st.session_state["selected_model"] = (
-                    "llama3:8b"  # Default to llama3:8b on initial load
+                    "llama3.2:1b"  # Default to llama3:8b on initial load
                 )
             elif "llama2:7b" in st.session_state["ollama_models"]:
                 st.session_state["selected_model"] = (

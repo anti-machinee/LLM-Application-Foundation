@@ -14,8 +14,8 @@ RUN pip install pipenv
 RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
 # Install python dependencies in /.venv
-COPY .env/Pipfile .
-COPY .env/Pipfile.lock .
+COPY Pipfile .
+COPY Pipfile.lock .
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 
 
@@ -25,13 +25,15 @@ FROM base AS runtime
 COPY --from=python-deps /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 
+RUN apt-get update && apt-get install -y curl
+
 # Create and switch to a new user
 RUN useradd --create-home appuser
 WORKDIR /home/appuser
 USER appuser
 
 # Install application into container
-COPY src .
+COPY . .
 
 # Expose the Streamlit port
 EXPOSE 8501
