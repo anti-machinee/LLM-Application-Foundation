@@ -8,3 +8,9 @@ opensources
 
 # docs
 *.pdf
+
+# compile
+__pycache__
+
+# files
+*.log
